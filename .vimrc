@@ -153,6 +153,6 @@ set pastetoggle=<F3> "Paste code without having an indentation-headache
 let g:syntastic_python_pylint_args = "--load-plugins pylint_django" "To let syntastic know about django; make sure pip install pylint-django
 
 " CtrlPsettings
-set wildignore+=*/tmp/*,*.so,*.pyc,*.swp,*.zip,*/vendor/*,*/\.git/*
-let g:ctrlp_custom_ignore = 'tmp$\|\.git$\|\.hg$\|\.svn$\|.rvm$|.bundle$\|vendor'
-let g:ctrlp_clear_cache_on_exit=0
+set wildignore+=*/tmp/*,*.so,*.pyc,*.swp,*.zip,*/vendor/*,*/venv/*,*/env/*,*/\.git/*
+let g:ctrlp_custom_ignore = 'tmp$\|\.git$\|\.hg$\|\.svn$\|.rvm$|.bundle$\|vendor|env|venv'
+let g:ctrlp_clear_cache_on_exit=1

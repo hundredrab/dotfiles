@@ -37,6 +37,8 @@ Plugin 'SirVer/ultisnips'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'fholgado/minibufexpl.vim'
 Plugin 'Chiel92/vim-autoformat'
+Plugin 'sjl/gundo.vim'
+Plugin 'rking/ag.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -81,8 +83,11 @@ nnoremap <leader>a :Autopep8<cr>ZZ
 nnoremap <leader>ft Vatzf
 
 let python_highlight_all = 1
-nmap Q gq
-nmap Q gqap
+set wildmenu
+set cursorline
+nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
+nnoremap <leader>ss :Ag
 
 let g:pymode_python = 'python3'
 let g:auto_save = 0

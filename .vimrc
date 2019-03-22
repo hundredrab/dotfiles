@@ -39,6 +39,17 @@ Plugin 'fholgado/minibufexpl.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'sjl/gundo.vim'
 Plugin 'rking/ag.vim'
+Plugin 'terryma/vim-multiple-cursors'
+
+
+
+" Ultisnips settings
+let g:UltiSnipsExpandTrigger="<F5>"
+let g:UltiSnipsJumpForwardTrigger="<F6>"
+let g:UltiSnipsJumpBackwardTrigger="<F7>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -105,10 +116,14 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 " let g:ycm_register_as_syntastic_checker = 0 " Faster vim?
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-t> :NERDTreeToggle<CR>
 map <C-m> :MBEToggle<CR>
 
 set pastetoggle=<F3> "Paste code without having an indentation-headache
+
+highlight ALEWarning ctermbg=none cterm=none
+highlight ALEError ctermbg=none cterm=underline
+let g:ale_python_pylint_options = '--load-plugins pylint_django'
 
 "Django specific mappings to jump between files
 "let g:last_relative_dir = ''

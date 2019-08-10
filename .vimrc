@@ -1,6 +1,10 @@
 set nocompatible              " required
-filetype off                  " required
+"filetype off                  " required
 set modelines=0
+
+"for syntax highlighting
+filetype plugin on
+syntax on
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -35,11 +39,15 @@ Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
 Plugin 'SirVer/ultisnips'
 Plugin 'sheerun/vim-polyglot'
-Plugin 'fholgado/minibufexpl.vim'
+"Plugin 'fholgado/minibufexpl.vim'
 Plugin 'Chiel92/vim-autoformat'
 Plugin 'sjl/gundo.vim'
 Plugin 'rking/ag.vim'
 Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'vim-airline/vim-airline'
+
+colorscheme solarized
+set background=dark
 
 
 
@@ -68,7 +76,7 @@ set relativenumber
 set visualbell
 set ttyfast
 set ruler
-" set hidden
+set hidden
 set ignorecase
 set smartcase
 set gdefault
@@ -102,6 +110,8 @@ nnoremap <leader>ss :Ag
 
 let g:pymode_python = 'python3'
 let g:auto_save = 0
+
+let g:jedi#force_py_version=3
 
 " Press O to just add a line below.
 map O o<ESC>
@@ -176,3 +186,4 @@ let g:syntastic_python_pylint_args = "--load-plugins pylint_django" "To let synt
 set wildignore+=*/tmp/*,*.so,*.pyc,*.swp,*.zip,*/vendor/*,*/venv/*,*/env/*,*/\.git/*
 let g:ctrlp_custom_ignore = 'tmp$\|\.git$\|\.hg$\|\.svn$\|.rvm$|.bundle$\|vendor|env|venv'
 let g:ctrlp_clear_cache_on_exit=1
+

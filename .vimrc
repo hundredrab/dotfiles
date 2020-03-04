@@ -28,11 +28,12 @@ Plugin 'tell-k/vim-autopep8'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive' "for git
 " Plugin 'tweekmonster/impsort.vim'
-" Plugin 'MarcWeber/vim-addon-mw-utils'
-" Plugin 'tomtom/tlib_vim'
-" Plugin 'garbas/vim-snipmate'
+
+Plugin 'MarcWeber/vim-addon-mw-utils' "snipmate dependency
+Plugin 'tomtom/tlib_vim' "snipmate dependency
+Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 Plugin 'tpope/vim-sensible'
 "Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'
@@ -41,14 +42,35 @@ Plugin 'SirVer/ultisnips'
 Plugin 'sheerun/vim-polyglot'
 "Plugin 'fholgado/minibufexpl.vim'
 Plugin 'Chiel92/vim-autoformat'
-Plugin 'sjl/gundo.vim'
-Plugin 'rking/ag.vim'
-Plugin 'terryma/vim-multiple-cursors'
-"Plugin 'vim-airline/vim-airline'
+"Plugin 'terryma/vim-multiple-cursors'
+"Plugin 'thiagoalessio/rainbow_levels.vim'
 
-colorscheme solarized
-set background=dark
+"For live html/css/js editing
+Plugin 'turbio/bracey.vim'
+Plugin 'tweekmonster/django-plus.vim'
 
+" Flutter/Dart stuff
+Plugin 'dart-lang/dart-vim-plugin'
+Plugin 'thosakwe/vim-flutter'
+
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'jmcantrell/vim-virtualenv'
+
+Plugin 'wmvanvliet/jupyter-vim'
+
+
+Plugin 'arcticicestudio/nord-vim' "colorscheme: nord
+
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+colorscheme nord
+
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=236
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 
 
 " Ultisnips settings
@@ -59,9 +81,6 @@ let g:UltiSnipsJumpBackwardTrigger="<F7>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
 
 syntax enable
 set tabstop=4
@@ -84,6 +103,7 @@ set incsearch
 set showmatch
 set hlsearch
 let mapleader = ","
+let maplocalleader = "["
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
@@ -101,20 +121,17 @@ nnoremap <leader>i :Isort<cr>
 nnoremap <leader>a :Autopep8<cr>ZZ
 nnoremap <leader>ft Vatzf
 
-let python_highlight_all = 1
+"let python_highlight_all = 1
 set wildmenu
 set cursorline
-nnoremap <leader>u :GundoToggle<CR>
-let g:gundo_prefer_python3 = 1          " anything else breaks on Ubuntu 16.04+
-nnoremap <leader>ss :Ag
 
 let g:pymode_python = 'python3'
-let g:auto_save = 0
+let g:auto_save = 1
 
 let g:jedi#force_py_version=3
-
-" Press O to just add a line below.
-map O o<ESC>
+let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_guide_size = 1
+"let g:indent_guides_start_level = 2
 
 "YCM related:
 let g:ycm_autoclose_preview_window_after_completion=1
@@ -127,63 +144,56 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 map <C-t> :NERDTreeToggle<CR>
-map <C-m> :MBEToggle<CR>
 
 set pastetoggle=<F3> "Paste code without having an indentation-headache
 
 highlight ALEWarning ctermbg=none cterm=none
 highlight ALEError ctermbg=none cterm=underline
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
+let g:ale_dart_dartfmt_executable = '/usr/lib/dart/bin/dartfmt'
+let g:ale_fixers = {
+\   'python': ['autopep8', 'black', 'isort', 'yapf'],
+\   'dart': ['dartfmt'],
+\}
 
-"Django specific mappings to jump between files
-"let g:last_relative_dir = ''
-"nnoremap \1 :call RelatedFile ("models.py")<cr>
-"nnoremap \2 :call RelatedFile ("views.py")<cr>
-"nnoremap \3 :call RelatedFile ("urls.py")<cr>
-"nnoremap \4 :call RelatedFile ("admin.py")<cr>
-"nnoremap \5 :call RelatedFile ("tests.py")<cr>
-"nnoremap \6 :call RelatedFile ( "templates/" )<cr>
-"nnoremap \7 :call RelatedFile ( "templatetags/" )<cr>
-"nnoremap \8 :call RelatedFile ( "management/" )<cr>
-"nnoremap \0 :e settings.py<cr>
-"nnoremap \9 :e urls.py<cr>
+"let g:ale_virtualenv_dir_names = ['env']
 
-"fun! RelatedFile(file)
-    "#This is to check that the directory looks djangoish
-    "if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
-        "exec "edit %:h/" . a:file
-        "let g:last_relative_dir = expand("%:h") . '/'
-        "return ''
-    "endif
-    "if g:last_relative_dir != ''
-        "exec "edit " . g:last_relative_dir . a:file
-        "return ''
-    "endif
-    "echo "Cant determine where relative file is : " . a:file
-    "return ''
-"endfun
 
-"fun SetAppDir()
-    "if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
-        "let g:last_relative_dir = expand("%:h") . '/'
-        "return ''
-    "endif
-"endfun
-"autocmd BufEnter *.py call SetAppDir()
-
-"I'm a syntastic newbie
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 0
-"let g:syntastic_check_on_wq = 1
-
-let g:syntastic_python_pylint_args = "--load-plugins pylint_django" "To let syntastic know about django; make sure pip install pylint-django
 
 " CtrlPsettings
 set wildignore+=*/tmp/*,*.so,*.pyc,*.swp,*.zip,*/vendor/*,*/venv/*,*/env/*,*/\.git/*
 let g:ctrlp_custom_ignore = 'tmp$\|\.git$\|\.hg$\|\.svn$\|.rvm$|.bundle$\|vendor|env|venv'
 let g:ctrlp_clear_cache_on_exit=1
+
+
+au BufRead,BufNewFile *.dart set filetype=dart
+au BufRead,BufNewFile *.dart set sw=2 ts=2
+au BufRead,BufNewFile *.html set sw=2 ts=2
+au BufRead,BufNewFile *.css set sw=2 ts=2
+au BufRead,BufNewFile *.js set sw=2 ts=2
+
+nnoremap <leader>fa :FlutterRun<cr>
+nnoremap <leader>fq :FlutterQuit<cr>
+nnoremap <leader>fr :FlutterHotReload<cr>
+nnoremap <leader>fR :FlutterHotRestart<cr>
+nnoremap <leader>fD :FlutterVisualDebug<cr>
+nnoremap <leader>ff :!flutter format %<cr>
+
+"Diff colors
+hi DiffAdd guifg=NONE ctermfg=NONE guibg=#464632 ctermbg=238 gui=NONE cterm=NONE
+hi DiffChange guifg=NONE ctermfg=NONE guibg=#335261 ctermbg=239 gui=NONE cterm=NONE
+hi DiffDelete guifg=#f43753 ctermfg=203 guibg=#79313c ctermbg=237 gui=NONE cterm=NONE
+hi DiffText guifg=NONE ctermfg=NONE guibg=NONE ctermbg=NONE gui=reverse cterm=reverse
+
+
+"python with virtualenv support
+python3 << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+    exec(open('env/bin/activate_this.py').read(), {'__file__': 'env/bin/activate_this.py'})
+EOF
+
+"jupyter
+nnoremap <leader>x :JupyterSendCell<CR>
 

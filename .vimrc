@@ -5,68 +5,67 @@ set modelines=0
 "for syntax highlighting
 filetype plugin on
 syntax on
+set background=dark
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
+Plug 'davidhalter/jedi-vim'
+Plug 'ctrlpvim/ctrlp.vim'
+"Plug '907th/vim-auto-save' 
+Plug 'ervandew/supertab'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdcommenter'
+Plug 'fisadev/vim-isort', { 'for': ['python', 'django'] }
+Plug 'tell-k/vim-autopep8', { 'for': ['python', 'django'] }
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
 
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+Plug 'MarcWeber/vim-addon-mw-utils' "snipmate dependency
+Plug 'tomtom/tlib_vim' "snipmate dependency
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'w0rp/ale'
+Plug 'majutsushi/tagbar'
+Plug 'SirVer/ultisnips'
+Plug 'sheerun/vim-polyglot'
+"Plug 'fholgado/minibufexpl.vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'chrisbra/DynamicSigns'
+Plug 'thiagoalessio/rainbow_levels.vim'
 
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-" add all your plugins here (note older versions of Vundle
-" used Bundle instead of Plugin)
-Plugin 'davidhalter/jedi-vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin '907th/vim-auto-save'
-Plugin 'ervandew/supertab'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'fisadev/vim-isort'
-Plugin 'tell-k/vim-autopep8'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive' "for git
-" Plugin 'tweekmonster/impsort.vim'
-
-Plugin 'MarcWeber/vim-addon-mw-utils' "snipmate dependency
-Plugin 'tomtom/tlib_vim' "snipmate dependency
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
-"Plugin 'Valloric/YouCompleteMe'
-Plugin 'tpope/vim-sensible'
-"Plugin 'vim-syntastic/syntastic'
-Plugin 'w0rp/ale'
-Plugin 'majutsushi/tagbar'
-Plugin 'SirVer/ultisnips'
-Plugin 'sheerun/vim-polyglot'
-"Plugin 'fholgado/minibufexpl.vim'
-Plugin 'Chiel92/vim-autoformat'
-"Plugin 'terryma/vim-multiple-cursors'
-"Plugin 'thiagoalessio/rainbow_levels.vim'
-
-"For live html/css/js editing
-Plugin 'turbio/bracey.vim'
-Plugin 'tweekmonster/django-plus.vim'
+Plug 'tweekmonster/django-plus.vim', { 'for': ['htmldjango', 'python', 'django']}
 
 " Flutter/Dart stuff
-Plugin 'dart-lang/dart-vim-plugin'
-Plugin 'thosakwe/vim-flutter'
+Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
+Plug 'thosakwe/vim-flutter', { 'for': 'dart' }
 
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'jmcantrell/vim-virtualenv'
-
-Plugin 'wmvanvliet/jupyter-vim'
+Plug 'nathanaelkane/vim-indent-guides', { 'for': ['dart', 'html', 'css', 'js', 'ts'] }
+Plug 'wmvanvliet/jupyter-vim'
 
 
-Plugin 'arcticicestudio/nord-vim' "colorscheme: nord
+"Plug 'arcticicestudio/nord-vim' "colorscheme: nord
+"Plug 'zxqfl/tabnine-vim' "TabNine.com
+
+Plug 'editorconfig/editorconfig-vim' "Editorconfig for phoenix
+"Plug 'ggandor/vim-srt-sync' "For subtitles
 
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+" For zettlekasten
+Plug 'vimwiki/vimwiki'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'michal-h21/vim-zettel'
 
-colorscheme nord
+ Plug 'pangloss/vim-javascript'    " JavaScript support
+ Plug 'leafgarland/typescript-vim' " TypeScript syntax
+ Plug 'Quramy/tsuquyomi', { 'on': 'TsuImport' }
+" Plug 'maxmellon/vim-jsx-pretty'   " JS and JSX syntax
+" Plug 'neoclide/coc.nvim' , { 'branch' : 'release' }
+
+
+call plug#end()            " required
+filetype plugin indent on
+
+"colorscheme nord
 
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=236
@@ -89,7 +88,7 @@ set expandtab
 set number
 filetype indent on
 set autoindent
-" All of these from http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+"All of these stolen from http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 set undofile
 set relativenumber
 set visualbell
@@ -101,15 +100,14 @@ set smartcase
 set gdefault
 set incsearch
 set showmatch
+set smarttab
 set hlsearch
 let mapleader = ","
 let maplocalleader = "["
 nnoremap <leader><space> :noh<cr>
 nnoremap <tab> %
 vnoremap <tab> %
-set colorcolumn=81
-highlight ColorColumn ctermbg=Black
-nnoremap ; :
+"nnoremap ; :
 nnoremap <leader>w <C-w>v<C-w>l
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -118,30 +116,21 @@ nnoremap <C-l> <C-w>l
 
 "Do import sorts, autopep8, and fold HTML tags, respectively.
 nnoremap <leader>i :Isort<cr>
-nnoremap <leader>a :Autopep8<cr>ZZ
+nnoremap <leader>a :ALEFix<cr>
+":Autopep8<cr>ZZ
 nnoremap <leader>ft Vatzf
 
 "let python_highlight_all = 1
 set wildmenu
-set cursorline
 
 let g:pymode_python = 'python3'
-let g:auto_save = 1
+"let g:auto_save = 1 "Uncomment to enable autosave. I just use :wa instead
 
 let g:jedi#force_py_version=3
+let g:jedi#completions_enabled = 0
 let g:indent_guides_enable_on_vim_startup = 1
 "let g:indent_guides_guide_size = 1
 "let g:indent_guides_start_level = 2
-
-"YCM related:
-let g:ycm_autoclose_preview_window_after_completion=1
-let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
-let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
-let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
-let g:ycm_complete_in_comments = 1 " Completion in comments
-let g:ycm_complete_in_strings = 1 " Completion in string
-" let g:ycm_register_as_syntastic_checker = 0 " Faster vim?
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 map <C-t> :NERDTreeToggle<CR>
 
@@ -151,10 +140,16 @@ highlight ALEWarning ctermbg=none cterm=none
 highlight ALEError ctermbg=none cterm=underline
 let g:ale_python_pylint_options = '--load-plugins pylint_django'
 let g:ale_dart_dartfmt_executable = '/usr/lib/dart/bin/dartfmt'
-let g:ale_fixers = {
-\   'python': ['autopep8', 'black', 'isort', 'yapf'],
-\   'dart': ['dartfmt'],
+let g:ale_linters = {
+\   'python': ['flake8', 'black', 'pylint'],
+\   'typescript': ['eslint'],
 \}
+let g:ale_fixers = {
+\   'python': ['black', 'isort'],
+\   'dart': ['dartfmt'],
+\   'typescript': ['eslint'],
+\}
+", 'prettier', 'tslint', 'xo',
 
 "let g:ale_virtualenv_dir_names = ['env']
 
@@ -162,8 +157,20 @@ let g:ale_fixers = {
 
 " CtrlPsettings
 set wildignore+=*/tmp/*,*.so,*.pyc,*.swp,*.zip,*/vendor/*,*/venv/*,*/env/*,*/\.git/*
-let g:ctrlp_custom_ignore = 'tmp$\|\.git$\|\.hg$\|\.svn$\|.rvm$|.bundle$\|vendor|env|venv'
+let g:ctrlp_custom_ignore = 'tmp$\|\.git$\|\.hg$\|\.svn$\|.rvm$|.bundle$\|vendor\|env\|venv\|node_modules'
 let g:ctrlp_clear_cache_on_exit=1
+
+"" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 
 
 au BufRead,BufNewFile *.dart set filetype=dart
@@ -179,21 +186,41 @@ nnoremap <leader>fR :FlutterHotRestart<cr>
 nnoremap <leader>fD :FlutterVisualDebug<cr>
 nnoremap <leader>ff :!flutter format %<cr>
 
-"Diff colors
+"Diff colors for better view in git diffs (used w/ git-fugitive)
 hi DiffAdd guifg=NONE ctermfg=NONE guibg=#464632 ctermbg=238 gui=NONE cterm=NONE
 hi DiffChange guifg=NONE ctermfg=NONE guibg=#335261 ctermbg=239 gui=NONE cterm=NONE
 hi DiffDelete guifg=#f43753 ctermfg=203 guibg=#79313c ctermbg=237 gui=NONE cterm=NONE
 hi DiffText guifg=NONE ctermfg=NONE guibg=NONE ctermbg=NONE gui=reverse cterm=reverse
 
+"EditorConfig settings
+let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
+"detect ts files
+autocmd BufNewFile,BufRead *.ts setlocal filetype=typescript
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+              \   if &omnifunc == "" |
+              \           setlocal omnifunc=syntaxcomplete#Complete |
+              \   endif
+endif
 
-"python with virtualenv support
-python3 << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-    exec(open('env/bin/activate_this.py').read(), {'__file__': 'env/bin/activate_this.py'})
-EOF
 
-"jupyter
+"for jupyter qtconsole
 nnoremap <leader>x :JupyterSendCell<CR>
 
+"vimwiki // zettelkasten for note taking
+let g:vimwiki_list = [{'path':'~/scratchbox/vimwiki/markdown/','ext':'.md','syntax':'markdown', 'path_html': '~/scratchbox/vimwiki/site_html/', 'custom_wiki2html': 'vimwiki_markdown'}, {"path":"~/scratchbox/vimwiki/wiki/"}]
+let g:zettel_format = "%y%m%d-%H%M"
+let g:zettel_options = [{"template" :  "~/scratchbox/vimwiki/zettle_template.tpl"}]
+nnoremap /tod "=strftime("%b %d %Y")<CR>P
+inoremap /tod <ESC>"=strftime("%b %d %Y")<CR>P
+nnoremap <leader>o :ZettelOpen<CR>
+
+"zebra coloring
+let g:Signs_Alternate = 1
+
+"Following to unbreak 8.2; see: https://www.reddit.com/r/vim/comments/gv410k/strange_character_since_last_update_42m/
+let &t_TI = ""
+let &t_TE = ""
+
+"Run the command on current line on the shell and pipe back the output
+nnoremap  Q !!$SHELL<CR>

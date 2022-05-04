@@ -1,4 +1,5 @@
 set nocompatible              " required
+set encoding=utf-8
 "filetype off                  " required
 set modelines=0
 
@@ -10,7 +11,10 @@ set background=dark
 call plug#begin('~/.vim/plugged')
 Plug 'davidhalter/jedi-vim'
 Plug 'ctrlpvim/ctrlp.vim'
-"Plug '907th/vim-auto-save' 
+Plug '907th/vim-auto-save'
+Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plug 'ycm-core/YouCompleteMe'
+Plug 'jmcantrell/vim-virtualenv'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
@@ -76,8 +80,12 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=233
 let g:UltiSnipsExpandTrigger="<F5>"
 let g:UltiSnipsJumpForwardTrigger="<F6>"
 let g:UltiSnipsJumpBackwardTrigger="<F7>"
+let g:snipMate = { 'snippet_version' : 1 }
 
 " If you want :UltiSnipsEdit to split your window.
+let g:ycm_autoclose_preview_window_after_completion=1
+let python_highlight_all = 1
+map <leader>d  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let g:UltiSnipsEditSplit="vertical"
 
 
@@ -119,12 +127,16 @@ nnoremap <leader>i :Isort<cr>
 nnoremap <leader>a :ALEFix<cr>
 ":Autopep8<cr>ZZ
 nnoremap <leader>ft Vatzf
+tnoremap <C-h> <C-w>h
+tnoremap <C-j> <C-w>j
+tnoremap <C-k> <C-w>k
+tnoremap <C-l> <C-w>l
 
 "let python_highlight_all = 1
 set wildmenu
 
 let g:pymode_python = 'python3'
-"let g:auto_save = 1 "Uncomment to enable autosave. I just use :wa instead
+let g:auto_save = 1 "Uncomment to enable autosave. just use :wa instead
 
 let g:jedi#force_py_version=3
 let g:jedi#completions_enabled = 0
@@ -148,10 +160,12 @@ let g:ale_fixers = {
 \   'python': ['black', 'isort'],
 \   'dart': ['dartfmt'],
 \   'typescript': ['eslint'],
+\   'html': ['tidy'],
 \}
 ", 'prettier', 'tslint', 'xo',
 
 "let g:ale_virtualenv_dir_names = ['env']
+let g:virtualenv_auto_activate = 1
 
 
 
@@ -224,3 +238,10 @@ let &t_TE = ""
 
 "Run the command on current line on the shell and pipe back the output
 nnoremap  Q !!$SHELL<CR>
+
+nnoremap <leader>q :norm I'<Esc>A',<Esc>
+
+"Keep working dir clean, create swp, ~, un~ in .vim or /tmp
+"set backupdir=~/.vim/,/tmp//
+"set directory=~/.vim/,/tmp//
+"set undodir=~/.vim/,/tmp//

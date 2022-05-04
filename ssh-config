@@ -1,0 +1,9 @@
+Host <addr>
+    ForwardAgent yes
+
+Host fnd
+    Hostname <info-addr>
+    User <uname>
+    ForwardAgent yes
+    RequestTTY yes
+    RemoteCommand zsh
